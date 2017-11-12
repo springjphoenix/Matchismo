@@ -9,21 +9,29 @@
 #import "ViewController.h"
 
 @interface ViewController ()
-
+@property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
+@property (nonatomic) int flipsCount;
 @end
 
 @implementation ViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+- (void) setFlipsCount:(int)flipsCount {
+    _flipsCount = flipsCount;
+    self.flipsLabel.text = [NSString stringWithFormat:@"Flips: %d", self.flipsCount];
+    NSLog(@"flipsCount set to %d", self.flipsCount);
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (IBAction)touchCardButton:(UIButton *)sender {
+    if ([sender.currentTitle length]) {
+        [sender setBackgroundImage:[UIImage imageNamed:@"cardback"] forState:UIControlStateNormal];
+        [sender setTitle:@"" forState:UIControlStateNormal];
+    } else {
+        [sender setBackgroundImage:[UIImage imageNamed:@"cardfront"] forState:UIControlStateNormal];
+        [sender setTitle:@"A♣" forState:UIControlStateNormal];
+    }
+    
+    self.flipsCount++;
+    
 }
-
 
 @end
